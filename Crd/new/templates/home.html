@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row" style="mt-5">
+    <div class="col-lg-6">
+        <h1>Add details</h1>
+        <form method = "POST">
+             {% csrf_token %}
+            {{form.as_p}}
+        <button class="btn btn-danger " type="submit">Submit</button>
+        </form>
+
+    </div>
+
+    <div class="col-lg-6" style="margin-top:5%">
+
+       <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Password</th>
+        <th scope="col" colspan="2">Action</th>
+    </tr>
+  </thead>
+           {% for i in data %}
+  <tbody>
+    <tr>
+      <th >{{i.id}}</th>
+      <td>{{i.name}}</td>
+      <td>{{i.age}}</td>
+      <td>{{i.email}}</td>
+        <td style="display:flex">   <a class="btn btn-warning btn-sm" href="{% url 'update' i.id %}">Update</a>
+          <form action="{% url 'Deletedata' i.id %}" method="POST"  style="d-inline">  {% csrf_token %}
+
+              <input type="submit" value="Delete"  class="btn btn-danger" />
+          </form>
+        </td>
+
+
+
+    <tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+{% endblock content %}
